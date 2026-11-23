@@ -140,6 +140,13 @@ Voice IDs from the Nova 2 Sonic language-support docs. `tiffany` has been tested
 - Input: 16 kHz, 16-bit, mono PCM (microphone)
 - Output: 24 kHz, 16-bit, mono PCM (speakers)
 
+## Reference
+
+- [aws-nova-sonic-cli](https://github.com/christoferson/aws-nova-sonic-cli): sister project, the same assistant written by hand against the raw event protocol, plus a gallery of feature showcases and offline copies of the Nova 2 Sonic docs
+- [Strands Agents: bidirectional streaming](https://strandsagents.com/docs/user-guide/sdk/bidi/): `BidiAgent`, models, tools and I/O
+- [Strands Agents: Bedrock Nova Sonic model](https://strandsagents.com/docs/user-guide/sdk/bidi/models/bedrock/): `BedrockNovaSonicModel` options
+- [Nova 2.5 Sonic model card](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-2-5-sonic.html): model ID, regions, capabilities and quotas
+
 ## Troubleshooting
 
 - **`That AWS profile was not found`**: check `--profile` or `$AWS_PROFILE` against `~/.aws/config`.
