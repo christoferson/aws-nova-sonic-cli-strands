@@ -10,7 +10,12 @@ import os
 import sys
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+# Loading Strands takes several seconds; say so before the screen sits blank.
+if __name__ == "__main__":
+    print("Starting the voice assistant...", flush=True)
+
 import boto3
+from botocore.exceptions import BotoCoreError, NoCredentialsError, ProfileNotFound
 from rich.console import Console
 from strands import tool
 from strands.bidi import BidiAgent
@@ -275,6 +280,8 @@ def build_arg_parser():
 
 async def main(args):
     session = boto3.Session(profile_name=args.profile, region_name=args.region)
+    if session.get_credentials() is None:
+        raise NoCredentialsError()
     if args.debug:
         print(f"[debug] profile={session.profile_name} region={args.region} model={args.model_id} voice={args.voice}")
 
@@ -312,4 +319,14 @@ if __name__ == "__main__":
         asyncio.run(main(args))
     except KeyboardInterrupt:
         pass
+    except ProfileNotFound as e:
+        print("That AWS profile was not found. Check --profile or AWS_PROFILE.")
+        if args.debug:
+            print(f"[debug] {e}")
+        sys.exit(1)
+    except BotoCoreError as e:  # includes NoCredentialsError and expired SSO tokens
+        print("Could not get AWS credentials. If you use SSO, run: aws sso login --profile <name>")
+        if args.debug:
+            print(f"[debug] {e}")
+        sys.exit(1)
     print("Session ended.")

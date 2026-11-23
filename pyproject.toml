@@ -1,9 +1,10 @@
 [project]
 name = "aws-nova-sonic-cli-strands"
 version = "0.1.0"
+description = "Console speech-to-speech assistant on Amazon Nova 2.5 Sonic, built with Strands Agents BidiAgent"
 requires-python = ">=3.12"
 dependencies = [
     "boto3>=1.44.9",
-    "strands-agents-tools>=0.9.0",
     "strands-agents[bidi,bidi-io,bidi-pyaudio]>=1.65.0",
+    "tzdata>=2026.6",
 ]
